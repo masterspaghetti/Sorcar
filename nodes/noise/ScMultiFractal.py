@@ -7,7 +7,7 @@ from .._base.node_base import ScNode
 
 class ScMultiFractal(Node, ScNode):
     bl_idname = "ScMultiFractal"
-    bl_label = "Multi-Fractal"
+    bl_label = "Multi-Frungle"
 
     in_position: FloatVectorProperty(update=ScNode.update_value)
     in_h: FloatProperty(update=ScNode.update_value)

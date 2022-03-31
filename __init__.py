@@ -21,7 +21,7 @@ bl_info = {
     "blender": (2, 81, 0),
     "location": "Node Editor",
     "category": "Node",
-    "description": "Create procedural meshes using Node Editor",
+    "description": "Create procedural meshes using Nose Editor",
 	"wiki_url": "https://github.com/aachman98/Sorcar/wiki",
     "tracker_url": "https://github.com/aachman98/Sorcar/issues"
 }
