@@ -90,5 +90,5 @@ class ScNodeSocket:
                         return True
                     return False
                 self.socket_error = False
-                return self.set(eval("bpy.data.node_groups['" + self.id_data.name + "'].nodes['" + self.node.name + "']." + self.default_prop))
+                return self.set(eval("bpy.data.node_groups['" + self.id_data.name + "'].nodes['" + self.node.name + "']." + self.default_prop,{"__builtins__":{}}))
             return False
