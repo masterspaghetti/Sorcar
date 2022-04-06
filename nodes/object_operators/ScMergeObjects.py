@@ -22,7 +22,7 @@ class ScMergeObjects(Node, ScObjectOperatorNode):
     
     def pre_execute(self):
         super().pre_execute()
-        for obj in eval(self.inputs["Mesh Array"].default_value):
+        for obj in eval(self.inputs["Mesh Array"].default_value,{"__builtins__": {}}, {}):
             obj.select_set(True, view_layer=bpy.context.view_layer)
     
     def functionality(self):

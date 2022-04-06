@@ -38,7 +38,7 @@ class ScImportSvg(Node, ScNode):
     
     def post_execute(self):
         out = {}
-        collection = [c for c in bpy.data.collections if c not in eval(self.prop_collections)][0]
+        collection = [c for c in bpy.data.collections if c not in eval(self.prop_collections,{"__builtins__": {}}, {})][0]
         bpy.context.view_layer.objects.active = collection.objects[0]
         self.out_curve = bpy.context.active_object
         self.id_data.register_object(self.out_curve)

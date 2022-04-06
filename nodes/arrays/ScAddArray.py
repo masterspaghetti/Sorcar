@@ -16,7 +16,7 @@ class ScAddArray(Node, ScNode):
 
     def post_execute(self):
         out = {}
-        arr = eval(self.inputs["Array"].default_value)
-        arr.extend(eval(self.inputs["Secondary Array"].default_value))
+        arr = eval(self.inputs["Array"].default_value,{"__builtins__": {}}, {})
+        arr.extend(eval(self.inputs["Secondary Array"].default_value),{"__builtins__": {}}, {})
         out["New Array"] = repr(arr)
         return out

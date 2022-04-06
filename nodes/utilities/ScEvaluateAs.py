@@ -27,7 +27,7 @@ class ScEvaluateAs(Node, ScNode):
         out = {}
         try:
             print("debug: Array")
-            out["As Array"] = repr(list(eval(self.inputs["Element"].default_value)))
+            out["As Array"] = repr(list(eval(self.inputs["Element"].default_value,{"__builtins__": {}}, {})))
         except:
             out["As Array"] = "[]"
         try:
@@ -42,27 +42,27 @@ class ScEvaluateAs(Node, ScNode):
             out["As Curve"] = None
         try:
             print("debug: Float")
-            out["As Float"] = float(eval(self.inputs["Element"].default_value))
+            out["As Float"] = float(eval(self.inputs["Element"].default_value),{"__builtins__": {}}, {})
         except:
             out["As Float"] = 0.0
         try:
             print("debug: Int")
-            out["As Int"] = int(eval(self.inputs["Element"].default_value))
+            out["As Int"] = int(eval(self.inputs["Element"].default_value),{"__builtins__": {}}, {})
         except:
             out["As Int"] = 0
         try:
             print("debug: Object")
-            out["As Object"] = bpy.data.objects.get(eval(self.inputs["Element"].default_value).name)
+            out["As Object"] = bpy.data.objects.get(eval(self.inputs["Element"].default_value,{"__builtins__": {}}, {}).name)
         except:
             out["As Object"] = None
         try:
             print("debug: String")
-            out["As String"] = str(eval(self.inputs["Element"].default_value))
+            out["As String"] = str(eval(self.inputs["Element"].default_value,{"__builtins__": {}}, {}))
         except:
             out["As String"] = ""
         try:
             print("debug: Vector")
-            out["As Vector"] = Vector(eval(self.inputs["Element"].default_value)).to_tuple()
+            out["As Vector"] = Vector(eval(self.inputs["Element"].default_value,{"__builtins__": {}}, {})).to_tuple()
         except:
             out["As Vector"] = (0, 0, 0)
         return out
