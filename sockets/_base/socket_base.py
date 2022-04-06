@@ -90,5 +90,11 @@ class ScNodeSocket:
                         return True
                     return False
                 self.socket_error = False
-                return self.set(eval("bpy.data.node_groups['" + self.id_data.name + "'].nodes['" + self.node.name + "']." + self.default_prop,{"__builtins__": {}}, {}))
+                allowed_names = {"sum": sum}
+
+                code = compile("bpy.data.node_groups['" + self.id_data.name + "'].nodes['" + self.node.name + "']." + self.default_prop, "<string>","eval")
+                for name in code.co_names:
+                    if name not in allowed_names:
+                        raise NameError(f"Use of {name} not allowed.")
+                return self.set(eval(code,{"__builtins__": {}}, allowed_names))
             return False
