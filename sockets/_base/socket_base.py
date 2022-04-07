@@ -90,9 +90,13 @@ class ScNodeSocket:
                         return True
                     return False
                 self.socket_error = False
+                ##Create small dictionary with words and their associated functions
                 allowed_names = {"sum": sum}
                 noError = True
+                ##Compile the code before applying to the eval function
                 code = compile("bpy.data.node_groups['" + self.id_data.name + "'].nodes['" + self.node.name + "']." + self.default_prop, "<string>","eval")
+                ##Raise a nameerror if the dictionary has a function other than the one in the dictionary
+                ##Basic math functions are allowed.
                 for name in code.co_names:
                     if name not in allowed_names:
                         noError = False
