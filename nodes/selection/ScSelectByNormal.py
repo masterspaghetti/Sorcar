@@ -34,7 +34,7 @@ class ScSelectByNormal(Node, ScSelectionNode):
         bpy.ops.object.mode_set(mode="OBJECT")
         if (not (self.inputs["Deselect"].default_value or self.inputs["Extend"].default_value)):
             bpy.ops.object.mode_set(mode="EDIT")
-            bpy.ops.mesh.select_all(action="DESELECT")
+            bpy.ops.mesh.mode_set(action="DESELECT")
             bpy.ops.object.mode_set(mode="OBJECT")
 
         if (bpy.context.tool_settings.mesh_select_mode[0]):
