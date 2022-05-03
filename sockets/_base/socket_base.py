@@ -10,10 +10,10 @@ class ScNodeSocket:
 
     def get_label(self):
         return str(self.default_value)
-    
+
     def get_data(self, data_type=None):
         return convert_data(self.default_value, self.default_type, data_type)
-    
+
     def set(self, val, data_type=None):
         ret = True
         if (data_type):
@@ -25,7 +25,7 @@ class ScNodeSocket:
             return True
         print_log(self.node.name, self.name, "set", "Value not set")
         return False
-    
+
     def init(self, default_prop="", visible=False):
         # Initialise node socket values
         self.default_prop = default_prop
@@ -34,11 +34,11 @@ class ScNodeSocket:
 
     def draw_color(self, context, node):
         return self.color
-    
+
     def draw_layout(self, context, layout, node, prop, text):
         # Draw overridable custom layout of socket
         layout.prop(node, prop, text=text)
-    
+
     def draw(self, context, layout, node, text):
         if (self.is_output):
             layout.label(text=text + ": " + self.get_label())
@@ -56,7 +56,7 @@ class ScNodeSocket:
                 else:
                     layout.prop(self, "hide", icon='RADIOBUT_OFF', icon_only=True, invert_checkbox=True)
                     self.draw_layout(context, layout, node, self.default_prop, text)
-    
+
     def execute(self, forced):
         # Execute node socket to get/set default_value
         if (self.is_output):
@@ -90,17 +90,8 @@ class ScNodeSocket:
                         return True
                     return False
                 self.socket_error = False
-                ##Create small dictionary with words and their associated functions
-                allowed_names = {"sum": sum}
-                noError = True
+
                 ##Compile the code before applying to the eval function
-                code = compile("bpy.data.node_groups['" + self.id_data.name + "'].nodes['" + self.node.name + "']." + self.default_prop, "<string>","eval")
-                ##Raise a nameerror if the dictionary has a function other than the one in the dictionary
-                ##Basic math functions are allowed.
-                for name in code.co_names:
-                    if name not in allowed_names:
-                        noError = False
-                        raise NameError(f"Use of {name} not allowed.")
-                assert noError == True
-                return self.set(eval(code,{"__builtins__": {}}, allowed_names))
+                code = compile("bpy.data.node_groups['" + self.id_data.name + "'].nodes['" + self.node.name + "']." + self.default_prop)
+                return self.set(eval(code))
             return False
