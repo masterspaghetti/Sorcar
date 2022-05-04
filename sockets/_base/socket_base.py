@@ -4,6 +4,7 @@ from bpy.props import StringProperty, BoolProperty
 from mathutils import Vector
 from ...helper import print_log, convert_data
 
+
 class ScNodeSocket:
     default_prop: StringProperty()
     socket_error: BoolProperty()
@@ -49,7 +50,8 @@ class ScNodeSocket:
                 layout.label(text=text + ": " + self.get_label())
             else:
                 if (self.default_prop == ""):
-                    if (self.node.bl_idname == "ScNodeGroup" and [i for i in node.node_tree.inputs if i.identifier==self.identifier][0].show_prop):
+                    if (self.node.bl_idname == "ScNodeGroup" and
+                            [i for i in node.node_tree.inputs if i.identifier == self.identifier][0].show_prop):
                         self.draw_layout(context, layout, self, "default_value_update", text)
                     else:
                         layout.label(text=text)
@@ -66,7 +68,8 @@ class ScNodeSocket:
         else:
             self.socket_error = True
             # if (len(self.links) > 0):
-            if (self.is_linked): # self.is_linked doesn't get updated quickly (when using realtime update & modify links)
+            if (
+            self.is_linked):  # self.is_linked doesn't get updated quickly (when using realtime update & modify links)
                 from_node = self.links[0].from_node
                 from_socket = self.links[0].from_socket
                 while (from_node.bl_idname == "NodeReroute"):
@@ -77,21 +80,20 @@ class ScNodeSocket:
                     from_node = from_node.inputs[0].links[0].from_node
                 if (from_socket and from_socket.execute(forced)):
                     ret, data = from_socket.get_data(self.default_type)
-                    if(ret):
+                    if (ret):
                         self.socket_error = False
                         return self.set(data)
                     else:
                         print_log(self.node.name, self.name, "execute", msg="No ret")
             else:
                 if (self.default_prop == ""):
-                    if (self.node.bl_idname == "ScNodeGroup" and [i for i in self.node.node_tree.inputs if i.identifier==self.identifier][0].show_prop):
+                    if (self.node.bl_idname == "ScNodeGroup" and
+                            [i for i in self.node.node_tree.inputs if i.identifier == self.identifier][0].show_prop):
                         self.socket_error = False
                         self.default_value = self.default_value_update
                         return True
                     return False
                 self.socket_error = False
-
-                ##Compile the code before applying to the eval function
-                code = compile("bpy.data.node_groups['" + self.id_data.name + "'].nodes['" + self.node.name + "']." + self.default_prop)
-                return self.set(eval(code))
+                return self.set(eval(
+                    "bpy.data.node_groups['" + self.id_data.name + "'].nodes['" + self.node.name + "']." + self.default_prop))
             return False
