@@ -44,7 +44,7 @@ class ScNode:
         if (self.node_executable):
             if (self == context.space_data.edit_tree.nodes.active):
                 if (not self == context.space_data.edit_tree.nodes.get(str(context.space_data.edit_tree.node))):
-                    layout.operator("sorcar.execute_node", text="Set Prungus")
+                    layout.operator("sorcar.execute_node", text="Set Preview")
     
     def execute(self, forced=False):
         # Execute node

@@ -16,5 +16,5 @@ class ScCountElement(Node, ScNode):
 
     def post_execute(self):
         out = {}
-        out["Value"] = eval(self.inputs["Array"].default_value,{"__builtins__": {}}, {}).count(self.inputs["Element"].default_value,{"__builtins__": {}}, {})
+        out["Value"] = eval(self.inputs["Array"].default_value).count(self.inputs["Element"].default_value)
         return out

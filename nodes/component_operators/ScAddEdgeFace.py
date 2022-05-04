@@ -6,7 +6,7 @@ from .._base.node_operator import ScEditOperatorNode
 
 class ScAddEdgeFace(Node, ScEditOperatorNode):
     bl_idname = "ScAddEdgeFace"
-    bl_label = "Add EdgeLord"
+    bl_label = "Add Edge/Face"
     
     def functionality(self):
         bpy.ops.mesh.edge_face_add()

@@ -18,7 +18,7 @@ class ScNodeSocketArray(NodeSocket, ScNodeSocket):
         arr = []
         arr_len = 0
         try:
-            arr = eval(self.default_value,{"__builtins__": {}}, {})
+            arr = eval(self.default_value)
             arr_len = len(arr)
         except:
             arr_len = self.default_value.count(',') + 1

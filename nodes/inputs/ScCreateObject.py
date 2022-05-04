@@ -19,4 +19,4 @@ class ScCreateObject(Node, ScInputNode):
             type = "MESH",
             align = "CURSOR"
         )
-        bpy.context.active_object.data.from_pydata(eval(self.inputs["Vertices"].default_value,{"__builtins__": {}}, {}), eval(self.inputs["Edges"].default_value,{"__builtins__": {}}, {}), eval(self.inputs["Faces"].default_value,{"__builtins__": {}}, {}))
+        bpy.context.active_object.data.from_pydata(eval(self.inputs["Vertices"].default_value), eval(self.inputs["Edges"].default_value), eval(self.inputs["Faces"].default_value))

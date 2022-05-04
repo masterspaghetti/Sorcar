@@ -101,7 +101,7 @@ def convert_data(data, from_type=None, to_type=None):
             elif (from_type == "BOOL"):
                 val = float(data)
             elif (from_type == "STRING"):
-                val = float(eval(data,{"__builtins__": {}}, {}))
+                val = float(eval(data))
             elif (from_type == "VECTOR"):
                 val = Vector(data).magnitude
             elif (from_type == "OBJECT"):
@@ -109,7 +109,7 @@ def convert_data(data, from_type=None, to_type=None):
             elif (from_type == "CURVE"):
                 val = bpy.data.curves.find(data.name)
             elif (from_type == "ARRAY"):
-                val = len(eval(data,{"__builtins__": {}}, {}))
+                val = len(eval(data))
             elif (from_type == "SELECTION_TYPE"):
                 return False, None
         elif (to_type == "BOOL"):
@@ -126,7 +126,7 @@ def convert_data(data, from_type=None, to_type=None):
             elif (from_type == "CURVE"):
                 val = bool(data)
             elif (from_type == "ARRAY"):
-                val = bool(eval(data,{"__builtins__": {}}, {}))
+                val = bool(eval(data))
             elif (from_type == "SELECTION_TYPE"):
                 val = len(data) != 0
         elif (to_type == "STRING"):
@@ -152,7 +152,7 @@ def convert_data(data, from_type=None, to_type=None):
             elif (from_type == "BOOL"):
                 val = (float(data), float(data), float(data))
             elif (from_type == "STRING"):
-                val = Vector(eval(data,{"__builtins__": {}}, {})).to_tuple()
+                val = Vector(eval(data)).to_tuple()
             elif (from_type == "VECTOR"):
                 val = data
             elif (from_type == "OBJECT"):
@@ -160,7 +160,7 @@ def convert_data(data, from_type=None, to_type=None):
             elif (from_type == "CURVE"):
                 return False, None
             elif (from_type == "ARRAY"):
-                val = Vector((eval(data,{"__builtins__": {}}, {})[0], eval(data,{"__builtins__": {}}, {})[1], eval(data,{"__builtins__": {}}, {})[2])).to_tuple()
+                val = Vector((eval(data)[0], eval(data)[1], eval(data)[2])).to_tuple()
             elif (from_type == "SELECTION_TYPE"):
                 val = Vector(float("VERT" in data), float("EDGE" in data), float("FACE" in data)).to_tuple()
         elif (to_type == "OBJECT"):
@@ -169,7 +169,7 @@ def convert_data(data, from_type=None, to_type=None):
             elif (from_type == "BOOL"):
                 return False, None
             elif (from_type == "STRING"):
-                val = bpy.data.objects[eval(data,{"__builtins__": {}}, {}).name]
+                val = bpy.data.objects[eval(data).name]
             elif (from_type == "VECTOR"):
                 return False, None
             elif (from_type == "OBJECT"):
@@ -203,7 +203,7 @@ def convert_data(data, from_type=None, to_type=None):
             elif (from_type == "BOOL"):
                 val = "[" + str(data) + "]"
             elif (from_type == "STRING"):
-                val = str(list(eval(data,{"__builtins__": {}}, {})))
+                val = str(list(eval(data)))
             elif (from_type == "VECTOR"):
                 val = str(list(data))
             elif (from_type == "OBJECT"):
@@ -220,7 +220,7 @@ def convert_data(data, from_type=None, to_type=None):
             elif (from_type == "BOOL"):
                 return False, None
             elif (from_type == "STRING"):
-                val = eval(data,{"__builtins__": {}}, {})
+                val = eval(data)
             elif (from_type == "VECTOR"):
                 val = set()
                 if bool(data[0]):
@@ -234,7 +234,7 @@ def convert_data(data, from_type=None, to_type=None):
             elif (from_type == "CURVE"):
                 return False, None
             elif (from_type == "ARRAY"): # Allows you to take in a boolean array
-                data_eval = eval(data,{"__builtins__": {}}, {})
+                data_eval = eval(data)
                 val = set()
                 if bool(data_eval[0]):
                     val.add("VERT")
